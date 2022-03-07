@@ -1,0 +1,6 @@
+Tema: 1
+Nota: 8.0
+Predata in saptamana: 7
+Deadline: 7
+Feedback: wow
+
