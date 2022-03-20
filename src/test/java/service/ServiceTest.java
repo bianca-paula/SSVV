@@ -58,7 +58,7 @@ public class ServiceTest extends TestCase {
 //    }
 
     @Test
-    public void testSaveStudent_idIsNull() {
+    public void testSaveStudentidIsNull() {
         assertEquals(0,service.saveStudent(null, "name932", 932));
     }
 
