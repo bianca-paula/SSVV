@@ -2,7 +2,7 @@ package domain;
 
 import java.util.Objects;
 
-public class Tema implements HasID<String> {
+public class  Tema implements HasID<String> {
     private String idTema;
     private String descriere;
     private int deadline;
