@@ -28,17 +28,34 @@ public class TemaRepositoryTest extends TestCase {
 
     @Test
     public void testSaveTema_temaIdIsNull() {
-        //assertEquals(service.saveStudent("1000", "name", 221),1);
         Tema testTema = new Tema(null, "desc", 10, 7);
         assertEquals(testTema, temaRepository.save(testTema));
     }
 
     @Test
     public void testSaveTema_temaDescriereIsEmptyString() {
-        //assertEquals(service.saveStudent("1000", "name", 221),1);
         Tema testTema = new Tema("111", "", 10, 7);
         assertEquals(testTema, temaRepository.save(testTema));
     }
 
+
+    @Test
+    public void testSaveTema_temaDeadlineIsInvalid() {
+        Tema testTema = new Tema("111", "desc", 0, 7);
+        assertEquals(testTema, temaRepository.save(testTema));
+    }
+
+    @Test
+    public void testSaveTema_temaStartlineIsInvalid() {
+        Tema testTema = new Tema("111", "desc", 7, 15);
+        assertEquals(testTema, temaRepository.save(testTema));
+    }
+
+    @Test
+    public void testSaveTema_temaIsValid() {
+        Tema testTema = new Tema("111", "descriere", 7, 4);
+        assertEquals(null, temaRepository.save(testTema));
+        temaRepository.delete("111");
+    }
 
 }
