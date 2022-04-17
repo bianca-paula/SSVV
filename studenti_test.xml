@@ -4,4 +4,8 @@
         <Nume>NumeTest</Nume>
         <Grupa>898</Grupa>
     </student>
+    <student ID="800">
+        <Nume>Dorel</Nume>
+        <Grupa>912</Grupa>
+    </student>
 </Entitati>
