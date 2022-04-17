@@ -203,9 +203,75 @@ public class ServiceTest extends TestCase {
 
     @Test
     public void integrationTest(){
-        test_addStudent();
-        test_addTema();
-        test_addNota();
+        Student student = new Student("10001", "Ana", 922);
+        Tema tema = new Tema("10001", "tema", 8, 7);
+
+        assertEquals(1, service.saveStudent(student.getID(), student.getNume(), student.getGrupa()));
+        assertEquals(1, service.saveTema(tema.getID(), tema.getDescriere(), tema.getDeadline(), tema.getStartline()));
+        assertEquals(0, service.saveNota(student.getID(),tema.getID(), 8, 8,"bun"));
+
+        service.deleteStudent(student.getID());
+        service.deleteTema(tema.getID());
+    }
+
+    @Test
+    public void test_addStudent_integration(){
+        assertEquals(0,service.saveStudent("1006", "Test1", 20));
+        service.deleteStudent("1006");
+        assertEquals(1,service.saveStudent("1010", "Test2", 813));
+        service.deleteStudent("1010");
+        assertEquals(0,service.saveStudent("1009", "", 932));
+        service.deleteStudent("1009");
+        service.saveStudent("110", "Duplicate1", 932);
+        assertEquals(0,service.saveStudent("110", "Duplicate2", 932));
+        service.deleteStudent("110");
+
+    }
+
+
+    @Test
+    public void test_addAssignment_integration(){
+        Student student = new Student("900", "Ionel", 5);
+        Tema tema = new Tema("900", "tema", 19, 7);
+
+        assertEquals(0, service.saveStudent(student.getID(), student.getNume(), student.getGrupa()));
+
+        student.setGrupa(911);
+        assertEquals(1, service.saveStudent(student.getID(), student.getNume(), student.getGrupa()));
+
+        assertEquals(0, service.saveTema(tema.getID(), tema.getDescriere(), tema.getDeadline(), tema.getStartline()));
+
+        tema.setDeadline(10);
+        assertEquals(1, service.saveTema(tema.getID(), tema.getDescriere(), tema.getDeadline(), tema.getStartline()));
+
+        service.deleteStudent(student.getID());
+        service.deleteTema(tema.getID());
+    }
+
+    @Test
+    public void test_addGrade_integration(){
+        Student student = new Student("", "Dorel", 912);
+        Tema tema = new Tema("800", "", 11, 7);
+
+        assertEquals(0, service.saveStudent(student.getID(), student.getNume(), student.getGrupa()));
+
+        student.setID("800");
+        assertEquals(1, service.saveStudent(student.getID(), student.getNume(), student.getGrupa()));
+
+        assertEquals(0, service.saveTema(tema.getID(), tema.getDescriere(), tema.getDeadline(), tema.getStartline()));
+
+        tema.setDescriere("new homework");
+        assertEquals(1, service.saveTema(tema.getID(), tema.getDescriere(), tema.getDeadline(), tema.getStartline()));
+
+        Nota nota = new Nota(new Pair<>(student.getID(), tema.getID()), 100, 10, "feedback");
+
+        assertEquals(0, service.saveNota(student.getID(), tema.getID(), nota.getNota(), nota.getSaptamanaPredare(), nota.getFeedback()));
+
+        nota.setNota(9);
+        assertEquals(1, service.saveNota(student.getID(), tema.getID(), nota.getNota(), nota.getSaptamanaPredare(), nota.getFeedback()));
+
+        service.deleteStudent(student.getID());
+        service.deleteTema(tema.getID());
     }
 
 }
