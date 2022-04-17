@@ -1,8 +1,3 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Entitati>
-    <nota IDStudent="10001" IDTema="10001">
-        <Nota>8.0</Nota>
-        <SaptamanaPredare>8</SaptamanaPredare>
-        <Feedback>bun</Feedback>
-    </nota>
 </Entitati>
