@@ -2,6 +2,7 @@ package service;
 
 import domain.*;
 import repository.*;
+import validation.ValidationException;
 
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
@@ -49,12 +50,19 @@ public class Service {
             return -1;
         }
         else {
-            int deadline = temaXmlRepo.findOne(idTema).getDeadline();
+            if (valNota >= 0 && valNota <= 10) {
+                Tema tema = temaXmlRepo.findOne(idTema);
+                int deadline = tema.getDeadline();
+                int startline = tema.getStartline();
+                if(predata < startline)
+                    return 0;
+                if (predata - deadline > 2) {
+                    valNota =  1;
+                }
 
-            if (predata - deadline > 2) {
-                valNota =  1;
-            } else {
-                valNota =  valNota - 2.5 * (predata - deadline);
+                else if (predata>deadline){
+                    valNota =  valNota - 2.5 * (predata - deadline);
+                }
             }
             Nota nota = new Nota(new Pair(idStudent, idTema), valNota, predata, feedback);
             Nota result = notaXmlRepo.save(nota);

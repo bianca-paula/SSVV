@@ -199,16 +199,19 @@ public class ServiceTest extends TestCase {
         assertEquals(1, service.saveNota("222","121", 8.5, 14,"bun"));
         notaXMLRepo.delete(new Pair<>("222","121"));
 
+        service.deleteStudent("222");
+        service.deleteTema("121");
+
     }
 
     @Test
-    public void integrationTest(){
+    public void test_integrationTest(){
         Student student = new Student("10001", "Ana", 922);
         Tema tema = new Tema("10001", "tema", 8, 7);
 
         assertEquals(1, service.saveStudent(student.getID(), student.getNume(), student.getGrupa()));
         assertEquals(1, service.saveTema(tema.getID(), tema.getDescriere(), tema.getDeadline(), tema.getStartline()));
-        assertEquals(0, service.saveNota(student.getID(),tema.getID(), 8, 8,"bun"));
+        assertEquals(1, service.saveNota(student.getID(),tema.getID(), 8, 8,"bun"));
 
         service.deleteStudent(student.getID());
         service.deleteTema(tema.getID());
@@ -272,6 +275,8 @@ public class ServiceTest extends TestCase {
 
         service.deleteStudent(student.getID());
         service.deleteTema(tema.getID());
+        notaXMLRepo.delete(new Pair<>(student.getID(), tema.getID()));
+
     }
 
 }
